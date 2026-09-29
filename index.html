@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Help! Exit Ticket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E4F1FF; --ink:#16264A; --card:#FFFFFF; --soft:#C9DDF5;
+  --yellow:#FFC928; --red:#FF5A4E; --green:#2BB673; --blue:#2F7BEA; --purple:#7B5CE0; --orange:#F2A21B;
+  --pick:#FFE58A;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#0F1B33; --ink:#EAF2FF; --card:#1B2B4D; --soft:#2C4170; --pick:#5A4A10; }
+}
+:root[data-theme="dark"]{ --bg:#0F1B33; --ink:#EAF2FF; --card:#1B2B4D; --soft:#2C4170; --pick:#5A4A10; }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Baloo 2",ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+main{max-width:760px;margin:0 auto;padding:16px 16px 40px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--blue);outline-offset:3px}
+h1{font-size:clamp(2.4rem,9vw,4rem);line-height:1;margin:.2em 0 .1em;font-weight:800;letter-spacing:-.01em}
+.sub{font-size:1.25rem;margin:0 0 1.2rem;opacity:.85}
+.screen{display:none}.screen.on{display:block}
+.big{display:inline-flex;align-items:center;justify-content:center;gap:.4em;min-height:64px;padding:0 28px;border:none;border-radius:999px;background:var(--green);color:#fff;font-size:1.6rem;font-weight:800;box-shadow:0 5px 0 #1C8352}
+.big:active{transform:translateY(3px);box-shadow:0 2px 0 #1C8352}
+.big:disabled{opacity:.4}
+.namebox{width:100%;font:inherit;font-size:1.8rem;padding:12px 18px;border-radius:20px;border:4px solid var(--soft);background:var(--card);color:var(--ink);margin:6px 0 18px}
+label.lbl{font-size:1.3rem;font-weight:700}
+.hero{display:flex;justify-content:center;margin:8px 0 10px}
+.hero svg{width:min(320px,80vw);height:auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:16px;height:16px;border-radius:50%;background:var(--soft)}
+.dot.done{background:var(--yellow)}.dot.now{background:var(--blue)}
+.speak{width:64px;height:64px;border-radius:50%;border:none;background:var(--yellow);font-size:1.9rem;box-shadow:0 4px 0 #C99A10;flex:none}
+.q{font-size:clamp(1.6rem,6vw,2.3rem);font-weight:800;line-height:1.15;margin:6px 0 14px}
+.qart{display:flex;justify-content:center;margin-bottom:12px}
+.opts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.opt{background:var(--card);border:5px solid var(--soft);border-radius:26px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:6px;min-height:150px;justify-content:center}
+.opt .art{font-size:3.6rem;line-height:1;display:flex;align-items:center;justify-content:center;min-height:90px}
+.opt .art svg{width:150px;max-width:100%;height:auto}
+.opt .t{font-size:1.35rem;font-weight:700;text-align:center;line-height:1.1}
+.opt.sel{border-color:var(--blue);background:var(--pick)}
+.nav{display:flex;justify-content:flex-end;margin-top:18px}
+.stars{font-size:3rem;letter-spacing:.05em;text-align:center;margin:10px 0}
+.center{text-align:center}
+.note{font-size:1.1rem;opacity:.85}
+.saved{display:inline-block;padding:6px 16px;border-radius:999px;background:var(--card);font-size:1.1rem;margin-top:8px}
+.teacherlink{margin-top:28px;background:none;border:2px dashed var(--soft);border-radius:14px;padding:8px 14px;font-size:1rem}
+/* teacher view */
+.t-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.t-head h2{margin:0;font-size:2rem}
+.plain{background:var(--card);border:2px solid var(--soft);border-radius:12px;padding:6px 14px;font-size:1rem}
+.summary{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0;font-size:1.15rem}
+.tablewrap{overflow-x:auto;background:var(--card);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-family:system-ui,sans-serif;font-size:.95rem}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--soft);white-space:nowrap}
+td.ok{color:var(--green);font-weight:700}td.no{color:var(--red);font-weight:700}
+.del{background:none;border:none;color:var(--red);font-size:1rem}
+@media (prefers-reduced-motion:no-preference){ .opt{transition:transform .1s} .opt:active{transform:scale(.97)} }
+</style>
+</head>
+<body>
+<main>
+
+<!-- START -->
+<section id="s-start" class="screen on">
+  <div class="hero" id="heroArt"></div>
+  <h1>Help!</h1>
+  <p class="sub">Let's show what we learned about the hub and the color sensor.</p>
+  <label class="lbl" for="name">Your name</label>
+  <input id="name" class="namebox" autocomplete="off" maxlength="30" placeholder="Type your name">
+  <button id="startBtn" class="big" disabled>Start ▶</button>
+</section>
+
+<!-- QUESTION -->
+<section id="s-q" class="screen">
+  <div class="top">
+    <div class="dots" id="dots"></div>
+    <button class="speak" id="speakBtn" aria-label="Read the question out loud">🔊</button>
+  </div>
+  <div class="q" id="qText"></div>
+  <div class="qart" id="qArt"></div>
+  <div class="opts" id="opts"></div>
+  <div class="nav"><button class="big" id="nextBtn" disabled>Next ▶</button></div>
+</section>
+
+<!-- END -->
+<section id="s-end" class="screen center">
+  <h1 id="endName"></h1>
+  <div class="stars" id="stars"></div>
+  <p class="q" id="endScore"></p>
+  <div id="saveState" class="saved">Saving…</div>
+  <p class="note" id="showTeacher" hidden>Show this screen to your teacher.</p>
+  <p><button class="big" id="againBtn">Next friend ▶</button></p>
+</section>
+
+</main>
+<script>
+(function(){
+"use strict";
+// ---------- Art ----------
+const HUB = (hl) => `<svg viewBox="0 0 200 150" role="img" aria-label="Hub">
+  <rect x="10" y="10" width="180" height="130" rx="18" fill="#F4F4F4" stroke="#16264A" stroke-width="5"/>
+  <rect x="22" y="22" width="156" height="106" rx="12" fill="#FFC928"/>
+  ${Array.from({length:25},(_,i)=>`<rect x="${66+(i%5)*14}" y="${30+Math.floor(i/5)*14}" width="10" height="10" rx="2" fill="${[6,8,16,17,18].includes(i)?'#fff':'#E0A800'}"/>`).join('')}
+  <circle cx="72" cy="113" r="${hl==='left'?11:8}" fill="${hl==='left'?'#FF5A4E':'#16264A'}" ${hl==='left'?'stroke="#fff" stroke-width="3"':''}/>
+  <circle cx="100" cy="113" r="${hl==='center'?11:9}" fill="${hl==='center'?'#FF5A4E':'#fff'}" stroke="#16264A" stroke-width="3"/>
+  <circle cx="128" cy="113" r="${hl==='right'?11:8}" fill="${hl==='right'?'#FF5A4E':'#16264A'}" ${hl==='right'?'stroke="#fff" stroke-width="3"':''}/>
+</svg>`;
+const SENSOR = `<svg viewBox="0 0 200 150" role="img" aria-label="Color sensor">
+  <rect x="55" y="30" width="90" height="90" rx="14" fill="#F4F4F4" stroke="#16264A" stroke-width="5"/>
+  <circle cx="100" cy="75" r="26" fill="#16264A"/><circle cx="100" cy="75" r="14" fill="#2F7BEA"/><circle cx="94" cy="69" r="5" fill="#fff"/>
+  <path d="M100 120 C100 140 150 135 170 142" stroke="#16264A" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>`;
+const MOTOR = `<svg viewBox="0 0 200 150" role="img" aria-label="Motor">
+  <rect x="30" y="35" width="140" height="80" rx="16" fill="#F4F4F4" stroke="#16264A" stroke-width="5"/>
+  <circle cx="130" cy="75" r="28" fill="#2F7BEA" stroke="#16264A" stroke-width="4"/>
+  <rect x="124" y="57" width="12" height="36" rx="2" fill="#16264A"/><rect x="112" y="69" width="36" height="12" rx="2" fill="#16264A"/>
+</svg>`;
+const BLOCK = (color, text, hat) => `<svg viewBox="0 0 220 90" role="img" aria-label="${text} block">
+  ${hat?`<path d="M10 40 Q10 12 50 12 Q80 12 90 30 L205 30 Q210 30 210 36 L210 74 Q210 80 204 80 L16 80 Q10 80 10 74 Z" fill="${color}"/>`
+       :`<path d="M10 22 Q10 16 16 16 L40 16 L48 24 L68 24 L76 16 L204 16 Q210 16 210 22 L210 74 Q210 80 204 80 L16 80 Q10 80 10 74 Z" fill="${color}"/>`}
+  <text x="110" y="${hat?62:56}" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#fff" text-anchor="middle">${text}</text>
+</svg>`;
+const DOT = (c) => `<svg viewBox="0 0 100 100" style="width:90px"><circle cx="50" cy="50" r="42" fill="${c}" stroke="#16264A" stroke-width="5"/></svg>`;
+
+// ---------- Questions (from the "Help!" program: sensor on port B, story 1 starts with LEFT button) ----------
+const QUESTIONS = [
+  { q:"Tap the hub.", say:"Tap the hub.",
+    opts:[{t:"",art:SENSOR,say:"this one"},{t:"",art:HUB(),say:"this one"},{t:"",art:MOTOR,say:"this one"}], correct:1 },
+  { q:"The hub is the robot's…", say:"The hub is the robot's... brain, foot, or hat?",
+    opts:[{t:"Brain",art:"🧠"},{t:"Foot",art:"🦶"},{t:"Hat",art:"🎩"}], correct:0 },
+  { q:"The color sensor is a sensor. What does it do?", say:"The color sensor is a sensor. What does it do? It makes sounds, it sees colors, or it spins the wheels?",
+    opts:[{t:"Makes sounds",art:"🔊"},{t:"Sees colors",art:"👀"},{t:"Spins wheels",art:"⚙️"}], correct:1 },
+  { q:"How do we connect the sensor to the hub?", say:"How do we connect the sensor to the hub? With tape, with glue, or plug the cable into the hub?",
+    opts:[{t:"With tape",art:"🩹"},{t:"With glue",art:"🧴"},{t:"Plug the cable into the hub",art:"🔌"}], correct:2 },
+  { q:"Which button starts story 1?", say:"Which button starts story 1? The left button, the middle button, or the right button?",
+    opts:[{t:"Left",art:HUB('left')},{t:"Middle",art:HUB('center')},{t:"Right",art:HUB('right')}], correct:0 },
+  { q:"Story 1: the sensor sees blue. What sound do we hear?", art:DOT("#2F7BEA"),
+    say:"Story 1. The sensor sees blue. What sound do we hear? A dog, traffic, or a phone?",
+    opts:[{t:"Dog",art:"🐶"},{t:"Traffic",art:"🚗"},{t:"Phone",art:"📞"}], correct:1 },
+  { q:"Story 1: which color makes the dog bark?", art:"<span style='font-size:4rem'>🐶</span>",
+    say:"Story 1. Which color makes the dog bark? Blue, yellow, or green?",
+    opts:[{t:"Blue",art:DOT("#2F7BEA")},{t:"Yellow",art:DOT("#FFC928")},{t:"Green",art:DOT("#2BB673")}], correct:2 },
+  { q:"Which block plays a sound?", say:"Which block plays a sound? Tap it.",
+    opts:[{t:"",art:BLOCK("#F2A21B","wait until",false)},{t:"",art:BLOCK("#7B5CE0","play sound",false)},{t:"",art:BLOCK("#F2A21B","when pressed",true)}], correct:1 }
+];
+
+// ---------- State ----------
+// >>> PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE (ends with /exec) <<<
+const SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+let name="", idx=0, answers=[];
+const $ = (id) => document.getElementById(id);
+const show = (id) => { document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on', s.id===id)); window.scrollTo(0,0); };
+$('heroArt').innerHTML = HUB();
+
+// ---------- Speech ----------
+function speak(text){
+  try{
+    if(!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text); u.lang="en-US"; u.rate=0.85;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+$('speakBtn').onclick = () => speak(QUESTIONS[idx].say);
+
+// ---------- Start ----------
+$('name').addEventListener('input', e => { $('startBtn').disabled = !e.target.value.trim(); });
+$('name').addEventListener('keydown', e => { if(e.key==='Enter' && e.target.value.trim()) $('startBtn').click(); });
+$('startBtn').onclick = () => { name=$('name').value.trim().slice(0,30); idx=0; answers=new Array(QUESTIONS.length).fill(null); renderQ(); show('s-q'); };
+
+function renderQ(){
+  const Q = QUESTIONS[idx];
+  $('dots').innerHTML = QUESTIONS.map((_,i)=>`<span class="dot ${i<idx?'done':i===idx?'now':''}"></span>`).join('');
+  $('qText').textContent = Q.q;
+  $('qArt').innerHTML = Q.art || '';
+  $('opts').innerHTML = '';
+  Q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='opt'+(answers[idx]===i?' sel':'');
+    b.setAttribute('aria-label', o.t || ('Choice '+(i+1)));
+    b.innerHTML=`<div class="art">${o.art}</div>${o.t?`<div class="t"></div>`:''}`;
+    if(o.t) b.querySelector('.t').textContent=o.t;
+    b.onclick=()=>{ answers[idx]=i; document.querySelectorAll('.opt').forEach((x,j)=>x.classList.toggle('sel',j===i)); $('nextBtn').disabled=false; if(o.t) speak(o.t); };
+    $('opts').appendChild(b);
+  });
+  $('nextBtn').disabled = answers[idx]===null;
+  $('nextBtn').innerHTML = idx===QUESTIONS.length-1 ? 'Finish ⭐' : 'Next ▶';
+  speak(Q.say);
+}
+$('nextBtn').onclick = () => { if(answers[idx]===null) return; if(idx<QUESTIONS.length-1){ idx++; renderQ(); } else finish(); };
+
+// ---------- Finish ----------
+async function finish(){
+  const score = answers.reduce((s,a,i)=>s+(a===QUESTIONS[i].correct?1:0),0);
+  const total = QUESTIONS.length;
+  $('endName').textContent = 'Great job, ' + name + '!';
+  $('stars').textContent = '⭐'.repeat(score) + '☆'.repeat(total-score);
+  $('endScore').textContent = score + ' out of ' + total;
+  $('showTeacher').hidden = true;
+  $('saveState').textContent = 'Saving…';
+  show('s-end');
+  speak('Great job, ' + name + '! You got ' + score + ' out of ' + total + '.');
+  const rec = { name, score, total, answers, correct:answers.map((a,i)=>a===QUESTIONS[i].correct), at:new Date().toISOString() };
+  if(!SCRIPT_URL.startsWith("https://script.google.com/")) return saveFailed();
+  try{
+    // text/plain + no-cors avoids the CORS preflight Apps Script can't answer; the reply is unreadable, so we can't confirm.
+    await fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(rec)});
+    $('saveState').textContent='✅ Sent to your teacher';
+  }catch(err){ saveFailed(); }
+}
+function saveFailed(){ $('saveState').textContent='Not sent (no internet?)'; $('showTeacher').hidden=false; }
+$('againBtn').onclick = () => { try{speechSynthesis.cancel();}catch(e){} $('name').value=''; $('startBtn').disabled=true; show('s-start'); $('name').focus(); };
+
+})();
+</script>
+</body>
+</html>
